@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<!--
+    Author: Spencer Kolman
+    Project: MatchmakerWebLite
+    Guidance by Eric Pogue
+    All Rights Reserved
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Matchmaker Web</title>
+</head>
+
+<body>
+    <h1>&#10084;&#65039;Matchmaker Web&#10084;&#65039;</h1>
+    <p>Instructions: Respond to the following statements by choosing strongly agree, agree, neutral, disagree, or strongly disagree depending on your personal preferance to the respective statement. When all five statements are responded to press the "Calculate Compatibility" button. This will generate a response relating to wether or not we would make a good pair.</p>
+
+    <label>Cats are great pets.</label><br />
+    <select id="q1">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neutral</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select>
+    <br /><br />
+
+    <label>Apple makes the best computers.</label><br />
+    <select id="q2">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neutral</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select>
+
+    <br /><br />
+    <label>Sodexo serves great food.</label><br />
+    <select id="q3">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neutral</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select>
+
+    <br /><br />
+    <label>Riding in an airplane is fun.</label><br />
+    <select id="q4">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neutral</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select>
+
+    <br /><br />
+    <label>Living on campus at Lewis University is fun.</label><br />
+    <select id="q5">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neutral</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select>
+
+    <br /><br /><br />
+    <button onclick="calculateCompatibility()">Calculate Compatibility</button>
+    <p id="compatibility"></p>
+
+<script>
+    console.log('Starting Matchmaker Web Lite...');
+
+    function calculateCompatibility() {
+        console.log("calculateCompatibility()");
+
+        let desiredResponse1=4
+        let desiredResponse2=5
+        let desiredResponse3=1
+        let desiredResponse4=4
+        let desiredResponse5=3
+
+        let questionWeight1=4
+        let questionWeight2=6
+        let questionWeight3=3
+        let questionWeight4=5
+        let questionWeight5=2
+
+        let question1Response = document.getElementById('q1').selectedOptions[0].value
+        console.log("Question 1 Response: "+question1Response)
+
+        let question2Response = document.getElementById('q2').selectedOptions[0].value
+        console.log("Question 2 Response: "+question2Response)
+
+        let question3Response = document.getElementById('q3').selectedOptions[0].value
+        console.log("Question 3 Response: "+question3Response)
+
+        let question4Response = document.getElementById('q4').selectedOptions[0].value
+        console.log("Question 4 Response: "+question4Response)
+
+        let question5Response = document.getElementById('q5').selectedOptions[0].value
+        console.log("Question 5 Response: "+question5Response)
+
+        let similarity1=5-Math.abs(question1Response-desiredResponse1)
+        console.log("Question 1 Similarity: "+similarity1)
+
+        let similarity2=5-Math.abs(question2Response-desiredResponse2)
+        console.log("Question 2 Similarity: "+similarity2)
+
+        let similarity3=5-Math.abs(question3Response-desiredResponse3)
+        console.log("Question 3 Similarity: "+similarity3)
+
+        let similarity4=5-Math.abs(question4Response-desiredResponse4)
+        console.log("Question 4 Similarity: "+similarity4)
+
+        let similarity5=5-Math.abs(question5Response-desiredResponse5)
+        console.log("Question 5 Similarity: "+similarity5)
+
+        let weighted1=similarity1*questionWeight1
+        let weighted2=similarity2*questionWeight2
+        let weighted3=similarity3*questionWeight3
+        let weighted4=similarity4*questionWeight4
+        let weighted5=similarity5*questionWeight5
+
+        let compatibilityPercent=weighted1+weighted2+weighted3+weighted4+weighted5
+
+        let userResponse="<h1>Your compatibility is: "+compatibilityPercent+"%</h1>"
+
+        if (compatibilityPercent>85){
+            userResponse+="<h1 style=\"color:green\">Wanna be my roomate?</h1>"
+        }
+        else if (compatibilityPercent>65){
+            userResponse+="<h1 style=\"color:orange\">Let's text in our free time.</h1>"
+        }
+        else {
+            userResponse+="<h1 style=\"color:red\">I'm filing a restraining order.</h1>"
+        }
+
+        document.getElementById("compatibility").innerHTML=userResponse;
+    }
+</script>
+</body>
+</html>
+
